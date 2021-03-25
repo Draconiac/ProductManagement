@@ -38,26 +38,33 @@ public class Shop {
 
         ProductManager pm = new ProductManager("en-GB");        
         pm.createProduct(101, "Tea", BigDecimal.valueOf(1.99), Rating.NOT_RATED);
-        pm.printProductReport(101);
-        pm.reviewProduct(101, Rating.FOUR_STAR, "Nice cup of tea");
-        pm.reviewProduct(101, Rating.FOUR_STAR, "Nice cup of tea");
-        pm.reviewProduct(101, Rating.FIVE_STAR, "Amazing");
-        pm.reviewProduct(101, Rating.TWO_STAR, "Meh!");       
         //pm.printProductReport(101);
+        pm.reviewProduct(101, Rating.FOUR_STAR, "Nice cup of tea");
+        pm.reviewProduct(101, Rating.TWO_STAR, "Nice cup of tea");
+        pm.reviewProduct(101, Rating.ONE_STAR, "Amazing");
+        pm.reviewProduct(101, Rating.TWO_STAR, "Meh!");       
+        
+        pm.parseReview("1012,Nicesuuuuuu"); 
+        pm.printProductReport(101);
         
         //pm.changeLocal("ru-RU"); 
-        pm.createProduct(102, "Coffe", BigDecimal.valueOf(3.99), Rating.FOUR_STAR);
-        pm.printProductReport(102);
+        pm.createProduct(102, "Coffe", BigDecimal.valueOf(3.99), Rating.FOUR_STAR);        
         pm.reviewProduct(102, Rating.FOUR_STAR, "Nice cup of tea");
         pm.reviewProduct(102, Rating.FOUR_STAR, "Nice cup of tea");
         pm.reviewProduct(102, Rating.FIVE_STAR, "Amazing");
-        //pm.printProductReport(102);
+        pm.printProductReport(102);
         
+        pm.printProducts(p -> p.getPrice().floatValue() < 5, 
+                (p1, p2)->p2.getRating().ordinal()-p1.getRating().ordinal());
+        
+        pm.getDiscounts().forEach((rating, discount) -> System.out.println(rating+"\t"+discount));
         
         Comparator<Product> ratingSorter = (p1, p2) -> p2.getRating().ordinal() - p1.getRating().ordinal();
         Comparator<Product> priceSorter = (p1, p2) -> p2.getPrice().compareTo(p1.getPrice());
         
-        pm.printProducts(ratingSorter.thenComparing(priceSorter));
-        pm.printProducts(ratingSorter.thenComparing(priceSorter).reversed());
+        
+        
+//        pm.printProducts(ratingSorter.thenComparing(priceSorter));
+//        pm.printProducts(ratingSorter.thenComparing(priceSorter).reversed());
     }
 }
