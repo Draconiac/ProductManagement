@@ -41,7 +41,13 @@ public class Drink extends Product{
     public Product applyRating(Rating newRating) {
         return new Drink(getId(), getName(), getPrice(), newRating);
     }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
+            
     
 }
